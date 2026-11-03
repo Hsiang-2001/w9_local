@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notion 功能全解析 - 教學手冊</title>
+  <style>
+    :root {
+      --notion-blue: #009688;
+      --notion-dark-blue: #00695c;
+      --notion-gray: #2d3436;
+      --notion-light-gray: #5a6b6d;
+      --notion-white: #fafafa;
+      --notion-card: #ffffff;
+      --text-primary: #212121;
+      --text-secondary: #666666;
+      --border-radius: 12px;
+      --shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background: var(--notion-white);
+      margin: 0;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1, h2, h3, h4 {
+      color: var(--notion-dark-blue);
+      margin-top: 0;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--notion-blue), var(--notion-dark-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      border-left: 4px solid var(--notion-blue);
+      padding-left: 12px;
+      margin-top: 2rem;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+      color: var(--notion-blue);
+    }
+
+    .container {
+      background: var(--notion-card);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+      border: 1px solid #e0e0e0;
+    }
+
+    .alert {
+      background: #fff3e0;
+      border-left: 4px solid #ff9800;
+      padding: 1rem 1.2rem;
+      margin: 1rem 0;
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    }
+
+    .tip {
+      background: #e3f2fd;
+      border-left: 4px solid var(--notion-blue);
+      padding: 1rem 1.2rem;
+      margin: 1rem 0;
+      border-radius: var(--border-radius);
+    }
+
+    .step-badge {
+      display: inline-block;
+      background: var(--notion-blue);
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 28px;
+      font-size: 0.8rem;
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+
+    .progress-step {
+      display: inline-flex;
+      align-items: center;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .progress-step.active {
+      color: var(--notion-blue);
+    }
+
+    .progress-step.completed {
+      color: var(--notion-blue);
+      font-weight: bold;
+    }
+
+    .notion-icon {
+      width: 48px;
+      height: 48px;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .feature-card {
+      background: var(--notion-white);
+      padding: 1.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .feature-card h4 {
+      margin-top: 0;
+      color: var(--notion-blue);
+    }
+
+    code {
+      background: #f0f2f5;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: "SF Mono", "Fira Mono", monospace;
+      font-size: 0.85rem;
+    }
+
+    .kbd {
+      background: #e0e0e0;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: "SF Mono", "Fira Mono", monospace;
+      font-size: 0.8rem;
+      margin: 0 2px;
+      white-space: nowrap;
+    }
+
+    .calendar-badge {
+      display: inline-flex;
+      align-items: center;
+      background: #4285f4;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      margin-left: 8px;
+    }
+
+    .table-view, .calendar-view, .board-view {
+      margin: 1.5rem 0;
+      padding: 1rem;
+      background: #fafafa;
+      border-radius: 8px;
+      border: 1px solid #eee;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #e8eaed;
+      color: #5f6368;
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-size: 0.7rem;
+      margin-right: 4px;
+      margin-bottom: 4px;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+      h1 {
+        font-size: 1.6rem;
+      }
+      h2 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Notion 全功能教學手冊</h1>
+  <!-- 小型 SVG 圖示（純文字/幾何圖，離線安全） -->
+  <svg style="width: 1em; height: 1em; vertical-align: middle; margin-right: 4px; fill: #009688;">
+    <rect x="0" y="3" width="9" height="9"/>
+    <rect x="12" y="3" width="9" height="9"/>
+    <rect x="3" y="12" width="9" height="9"/>
+    <rect x="12" y="12" width="1" height="9"/>
+    <rect x="3" y="3" width="1" height="12"/>
+  </svg>
+  <svg style="width: 1em; height: 1em; vertical-align: middle; margin-right: 4px; fill: #4285f4;">
+    <circle cx="11" cy="11" r="5"/>
+    <line x1="2" y1="2" x2="22" y2="22"/>
+    <line x1="2" y1="22" x2="22" y2="2"/>
+  </svg>
+  <svg style="width: 1em; height: 1em; vertical-align: middle; margin-right: 4px; fill: #e3f2fd;">
+    <path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2Zm1 14-5-5v2h2v-2zM2 12h4v2H2v-2zm0 4h16v2H2v-2zm-8-8h8v2H2v-2Z"/>
+  </svg>
+  <p class="text-secondary" style="text-align: center; margin-bottom: 2rem;">繁體中文版 | 適用：新手入門到實務應用</p>
+
+  <!-- 進度條 -->
+  <div style="background: #e0e0e0; border-radius: 20px; padding: 6px 12px; margin-bottom: 2rem;">
+    <div style="background: #009688; border-radius: 20px; height: 20px; width: 20%; transition: width 0.3s; color: white; font-size: 0.7rem; display: flex; align-items: center; justify-content: center;;">
+      第一階段：基礎入門 (5%)
+    </div>
+  </div>
+
+  <!-- 來源說明區塊 -->
+  <div class="alert" style="margin-bottom: 2rem; border-left-color: #ff9800;">
+    <p><strong>📸 圖片說明與來源說明</strong></p>
+    <p>本教學材料之界面說明、操作截圖與步驟描述參考自 <strong>Notion 官方公開頁面</strong>（含但不限於 <code>notion.so</code> 首頁、<code>notion.so/templates</code> 範本市場、官方文件架構圖等公開可視區域）。</p>
+    <p><strong>⚠️ 權重要標示：</strong> 【來源：Notion官方公開頁面】 - 本檔案所有視覺描述與架構圖均基於對 Notion 官方介面之觀察與重構，與用戶本機畫面可能存在配色、排版差異，實際操作請以用戶自行所見為準。</p>
+    <p style="font-size: 0.8rem; margin-top: 0.5rem;;">※ 若需要本機真實畫面，請以您登入 Notion 後的實際視窗為準，本教材僅作學習導引使用。</p>
+  </div>
+
+  <!-- 第 1 章：安裝與啟動 -->
+  <div class="container" id="chapter-1">
+    <h2><span class="step-badge">1</span> 第 1 章：帳號建立與登入</h2>
+    <p>開始使用 Notion 前，請確認您已具備以下準備：</p>
+
+    <ol style="line-height: 2;">
+      <li>開啟瀏覽器，前往 <strong>notion.so</strong></li>
+      <li>點擊「<strong>註冊</strong>」，使用郵件地址或 Google/Apple 帳號快速加入</li>
+      <li>完成驗證郵件後，返回 Notion 並使用您的帳號登入</li>
+      <li>若需桌面版，可至 Notion 官網下載 <strong>Windows</strong> 或 <strong>macOS</strong> 版本</li>
+    </ol>
+
+    <div class="alert">
+      <strong>注意：</strong> 教育工作者與學生可申請 <strong>免費 Plus 方案</strong>，請在註冊頁面選擇「教育優惠」並上傳相關憑證。
+    </div>
+
+    <h3>💡 新手快速開始小技巧</h3>
+    <ul style="line-height: 1.8;">
+      <li>首次登入後，Notion 會顯示 <strong>範本庫</strong>，請嘗試點擊「<strong>關於 Notion</strong>」範本，先熟悉介面</li>
+      <li>若想離線使用，請確保在線上時已 <strong>預先載入</strong> 您需要的頁面（瀏覽器會自行快取）</li>
+    </ul>
+  </div>
+
+  <!-- 第 2 章：介面導覽 -->
+  <div class="container" id="chapter-2">
+    <h2><span class="step-badge">2</span> 第 2 章：介面主要元件說明</h2>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
+      <div>
+        <h3>側邊欄</h3>
+        <ul>
+          <li>📁 <strong>頁面列：</strong> 所有頁面與資料庫的容器</li>
+          <li>⚙️ <strong>設定：</strong> 點擊左上角 <code>•••</code> 進入設定與成員管理</li>
+          <li>🔍 <strong>搜尋：</strong> 上方放大鏡，可全站搜尋內容</li>
+        </ul>
+      </div>
+      <div>
+        <h3>工作區頂部</h3>
+        <ul>
+          <li>+ <strong>新增：</strong> 新增文字、圖片、資料庫等</li>
+          <li>✒️ <strong>編輯模式：</strong> 開啟/關閉編輯</li>
+          <li>⚙️ <strong>更多：</strong> 視圗切換、外掛、設定</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin: 1rem 0;">
+      <h3>畫布操作</h3>
+      <ul style="line-height: 1.8;">
+        <li>點擊 <code>按下 Enter</code> 在頁面底部新增文字塊</li>
+        <li>拖曳元件至畫布中任意位置，即可建立新區塊</li>
+        <li><code>/</code> <strong>斜線命令：</strong> 快速插入圖片、資料庫、清單等</li>
+      </ul>
+    </div>
+
+    <div class="tip">
+      <strong>提醒：</strong> Notion 的所有內容皆為 <strong>區塊</strong>（Block），無論是文字、圖片、資料庫，皆可透過拖曳調整位置與順序。
+    </div>
+  </div>
+
+  <!-- 第 3 章：文字編輯與媒體 -->
+  <div class="container" id="chapter-3">
+    <h2><span class="step-badge">3</span> 第 3 章：文字編輯與媒體嵌入</h2>
+
+    <h3>基本文字格式</h3>
+    <p>使用斜線命令或直接選取文字：</p>
+    <ul style="line-height: 1.8;">
+      <strong><code>/bold</code></strong> 或 <kbd>Ctrl + B</kbd> (Mac: <kbd>Cmd + B</kbd>)
+      <strong><code>/italic</code></strong> 或 <kbd>Ctrl + I</kbd> (Mac: <kbd>Cmd + I</kbd>)
+      <strong><code>/inline</code></strong> 程式碼 或 <kbd>Ctrl + K</kbd> (Mac: <kbd>Cmd + K</kbd>)
+      <strong><code>/link</code></strong> 超連結
+    </ul>
+
+    <h3>媒體與檔案嵌入</h3>
+    <p>在新增內容時，支援拖曳或貼上：</p>
+    <ul style="line-height: 1.8;">
+      <li>🖼️ 圖片（從電腦、unsplash 庫或直接貼上 URL</li>
+      <li>📺 動畫（YouTube、Vimeo 連結自動轉嵌</li>
+      <li>📄 檔案（PDF、Word、CSV 皆可預覽</li>
+    </ul>
+
+    <div class="tip">
+      <strong>貼上連結：</strong> 複製任何網址至新行並按 Enter，Notion 會自動擷取卡片預覽（需網路存取）。
+    </div>
+  </div>
+
+  <!-- 第 4 章：資料庫（核心功能） -->
+  <div class="container" id="chapter-4">
+    <h2><span class="step-badge">4</span> 第 4 章：資料庫—Notion 最強大的功能</h2>
+
+    <p>資料庫是 Notion 的核心。無論是待辦事項、項目追蹤，還是行事曆視圖，皆靠資料庫實現。</p>
+
+    <h3>建立資料庫的三種方式</h3>
+    <ol style="line-height: 1.8;">
+      <li><strong>頁面內建立：</strong> 點擊 <code>+</code> → <strong>資料庫</strong> → 選擇型態</li>
+      <li><strong>側邊欄新增：</strong> 點擊側邊欄 <code>+</code> → <strong>資料庫</strong> → 選擇型態</li>
+      <li><strong>斜線命令：</strong> <code>/database</code> → 選擇 <strong>表格 / 畫框 / 清單 / 行事曆</strong></li>
+    </ol>
+
+    <div class="feature-grid">
+      <!-- 表格視圖 -->
+      <div class="feature-card">
+        <h4>📋 表格視圖</h4>
+        <p>最基礎的檢視方式，類似電算表。每一列代表一個項目，每一欄代表屬性。</p>
+        <div class="table-view">
+          <div style="display: grid; grid-template-columns: 150px 1fr; gap: 8px; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 4px;">
+            <div>標題</div>
+            <div>內容</div>
+          </div>
+          <div style="display: grid; grid-template-columns: 150px 1fr; gap: 8px; font-size: 0.85rem;">
+            <div>📘 線上課程</div>
+            <div>課程連結與備註</div>
+          </div>
+          <div style="display: grid; grid-template-columns: 150px 1fr; gap: 8px; font-size: 0.85rem;">
+            <div>🍳 午餐清單</div>
+            <div>今日想吃什麼</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 行事曆視圖 -->
+      <div class="feature-card">
+        <h4>📅 行事曆視圖</h4>
+        <p>將資料庫欄位設定為「日期」後，即可切換為行事曃檢視，視覺化時間軸與活動。</p>
+        <div class="calendar-view">
+          <div style="text-align: center; padding: 8px; background: #e8f0fe; border-radius: 6px; margin-bottom: 8px; font-size: 0.8rem; color: var(--notion-blue);">
+            <strong>2024年10月</strong>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 4px; font-size: 0.7rem; color: var(--text-secondary);">
+            <div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; min-height: 120px;">
+            <div></div><div></div><div></div><div></div><div></div><div style="background: #4285f4; color: white; padding: 4px; border-radius: 4px; margin: 2px auto; width: 60%;">️會議</div><div></div><div></div>
+            <div></div><div></div><div style="background: #ff9800; color: white; padding: 4px; border-radius: 4px; margin: 2px auto; width: 70%;">️截止期限</div><div></div><div></div>
+          </div>
+        </div>
+        <p class="text-secondary" style="margin: 4px 0 0; font-size: 0.75rem;">左側為日期條，右側為事件顯示（示意圖）</p>
+      </div>
+
+      <!-- 看板視圖 -->
+      <div class="feature-card">
+        <h4>📋 看板視圖</h4>
+        <p>適用專案管理，類似 Trello。透過「狀態」欄位將任務移動至 <code>待辦 / 進行中 / 已完成</code>。</p>
+        <div style="background: white; padding: 8px; border-radius: 6px; margin-top: 8px;">
+          <div style="background: #e3f2fd; padding: 6px 10px; border-radius: 4px; margin: 4px; font-size: 0.7rem;;">任務 A</div>
+          <div style="background: #e3f2fd; padding: 6px 10px; border-radius: 4px; margin: 4px; font-size: 0.7rem;;">任務 B</div>
+          <div style="background: #fff3e0; padding: 6px 10px; border-radius: 4px; margin: 4px; font-size: 0.7rem;;">任務 C</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>資料庫欄位類型詳解</h3>
+    <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+      <thead>
+        <tr style="background: #f0f2f5;">
+          <th style="padding: 8px; border: 1px solid #e0e0e0;">欄位型態</th>
+          <th style="padding: 8px; border: 1px solid #e0e0e0;">說明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;"><code>文字</code></td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">單行或多行文字</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;"><code>日期</code></td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">選擇開始與結束日期</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;"><code>勾選核</code></td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">開關式布林值</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;"><code>選項</code></td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">下拉選單或多選標籤</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;"><code>數字</code></td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">計算、排序的數值</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;"><code>關聯</code></td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">連結其他資料庫中的項目</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;"><code>公式</code></td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">自定義邏輯計算結果</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 第 5 章：行事曆外接 -->
+  <div class="container" id="chapter-5">
+    <h2><span class="step-badge">5</span> 第 5 章：行事曃外接與同步</h2>
+
+    <div class="alert" style="margin-bottom: 1rem; border-left-color: #ff9800;">
+      <p>📌 <strong>畫面來源說明：</strong> 下方行事曃視圖示意圖參考自 Notion 官方文件與公開介面，標籤明確標示：<strong>【來源：Notion官方公開頁面】</strong></p>
+    </div>
+
+    <h3>為何要外接行事曃？</h3>
+    <p>Notion 的行事曃視圖雖強大，但若想同步 Google Calendar、Outlook 或其他行事曃軟體，需要透過以下方式實現：</p>
+
+    <h3>方法一：手動匯入（無需額外帳號）</h3>
+    <ol style="line-height: 1.8;">
+      <li>在 Notion 中建立資料庫，新增 <strong>日期</strong> 欄位</li>
+      <li>每個事件輸入 <strong>開始</strong> 與 <strong>結束</strong> 時間</li>
+      <li>切換視圖至 <strong>行事曃</strong>，即可在 Notion 內看到時間軸</li>
+      <li>若需<i>雙向同步</i>，需使用第三方工具（如 Zapier、Make、Notion API）</li>
+    </ol>
+
+    <h3>方法二：使用 Notion API 實現自行同步（進階）</h3>
+    <p>若您有開發能力，可透過 Notion API 定期推送事件至 Google Calendar：</p>
+
+    <details open="open" style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+      <summary style="font-weight: bold; color: var(--notion-blue);">💻 API 示範碼</summary>
+      <pre style="background: #fafafa; padding: 1rem; border-radius: 4px; overflow-x: auto; font-size: 0.8rem;">
+        <!-- Python 示例：將 Notion 資料推送至 Google Calendar -->
+        import notion_client
+        from google.oauth2 import service_account
+        from googleapiclient.discovery import build
+
+        # 1. 讀取 Notion 資料庫
+        notion = notion_client.Client(auth="secret_token")
+        database_id = "your_notion_database_id"
+        response = notion.databases.retrieve(database_id=database_id)
+        pages = notion.databases.query(database_id=database_id)["results"]
+
+        # 2. 設定 Google Calendar API
+        credentials = service_accountCredentials.from_service_account_file("keys.json")
+        service = build("calendar", "v3", credentials=credentials)
+
+        # 3. 逐一建立行事曃事件
+        for page in pages:
+            props = page["properties"]
+            start = props["Start Date"]["date"]["start"]
+            end = props["End Date"]["date"]["end"]
+            title = props["Name"]["title"][0]["plain_text"]
+
+            event = {
+                "summary": title,
+                "start": {"date": start},
+                "end": {"date": end}
+            }
+            service.events().insert(calendarId="primary", body=event).execute()
+        print(f"成功同步 {len(pages)} 筆事件")
+      </pre>
+    </details>
+
+    <h3>方法三：第三方同步工具（最簡單）</h3>
+    <ul style="line-height: 1.8;">
+      <li><strong>Zapier / Make (Integromat)：</strong> 建立觸發器「Notion 有新項目」→「Google Calendar 建立事件</li>
+      <li>無需寫程式，透過視覺化介面拖拉連線即可完成雙向同步</li>
+      <li>免費方案每月有次數限制，適合個人或小型專案使用</li>
+    </ul>
+
+    <div class="tip">
+      <strong>實務建議：</strong> 若只是個人使用，<strong>方法一</strong> 已足夠；若需要行事曃與 Notion 雙向更新（例如行事曃上新增事件自動同步至 Notion），請使用 <strong>Zapier</strong> 或 <strong>Notion API</strong>。
+    </div>
+  </div>
+
+  <!-- 第 6 章：協作與分享 -->
+  <div class="container" id="chapter-6">
+    <h2><span class="step-badge">6</span> 第 6 章：協作與分享</h2>
+
+    <h3>頁面分享</h3>
+    <ol style="line-height: 1.8;">
+      <li>點擊右上角 <strong>分享</strong> (↑) 按鈕</li>
+      <li>選擇 <strong>邀請成員</strong> 或 <strong>產生共享連結</strong></li>
+      <li>設定權限：<strong>只能閱讀 / Can comment / Can edit</strong></li>
+    </ol>
+
+    <h3>團隊工作區</h3>
+    <p>建立共同工作區後，所有成員可同步瀏覽、編輯相同的頁面與資料庫。變更會即時顯示於所有人畫面（實時協作）。</p>
+
+    <h3>權限管理</h3>
+    <ul style="line-height: 1.8;">
+      <li>管理者可移除或變更成員權限</li>
+      <li>單一頁面可獨立設定分享權限（與工作區獨立）</li>
+      <li>外部來賓可被邀請，但預設僅限閱讀與評論</li>
+    </ul>
+  </div>
+
+  <!-- 第 7 章：快捷鍵與效率提昇 -->
+  <div class="container" id="chapter-7">
+    <h2><span class="step-badge">7</span> 第 7 章：快捷鍵與效率提昇</h2>
+
+    <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+      <thead>
+        <tr style="background: #f0f2f5;">
+          <th style="padding: 8px; border: 1px solid #e0e0e0;">動作</th>
+          <th style="padding: 8px; border: 1px solid #e0e0e0;">快捷鍵</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">新增頁面</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;"><kbd>Ctrl + N</kbd> (Mac: <kbd>Cmd + N</kbd>)</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">全站搜尋</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;"><kbd>Ctrl + P</kbd> (Mac: <kbd>Cmd + P</kbd>)</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">切換視圗（表格/行事曃/畫框）</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;"><kbd>V</kbd> (於資料庫內)</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">複製當下頁面</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;"><kbd>Ctrl + Shift + D</kbd> (Mac: <kbd>Cmd + Shift + D</kbd>)</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">開啰/關閉側邊欄</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;"><kbd>Ctrl + Shift + ,</kbd> (Mac: <kbd>Cmd + Shift + ,</kbd>)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 結語 -->
+  <div class="container" style="text-align: center; margin-top: 3rem;">
+    <h2>🎉 恭喜！您已完成 Notion 基本功能學習</h2>
+    <p style="color: var(--text-secondary); margin-top: 1rem;">
+      這份教學涵蓋：帳號建立、介面導覽、資料庫操作、行事曃外接、協作分享與快捷鍵。<br>
+      建議您：<br>
+      1. 先嘗試建立一個「個人待辦」資料庫，並嘗試切換至<strong>行事曃視圖</strong><br>
+      2. 試著使用<strong>斜線命令</strong>（<code>/</code>）快速插入元件<br>
+      3. 若有團隊需求，再探索<strong>協作分享</strong>與<strong>API 同步</strong>
+    </p>
+    <p style="margin-top: 2rem; font-size: 0.9rem; color: #888;">
+      祝您使用愉快 🚀
+    </p>
+  </div>
+
+  <script>
+    // 簡單的進度條更新邏輯
+    document.addEventListener('DOMContentLoaded', () => {
+      const steps = document.querySelectorAll('.step-badge');
+      const totalSteps = steps.length;
+      let completed = 0;
+
+      // 模擬進度（實際教學中可根據實際情況更新）
+      const updateProgress = () => {
+        const percent = Math.round((completed / totalSteps) * 100);
+        const progressDiv = document.querySelector('div[style*="width: 20%"]');
+        if (progressDiv) {
+          progressDiv.style.width = `${percent}%`;
+          progressDiv.innerText = `第一階段：基礎入門 (${percent}%)`;
+        }
+      };
+
+      // 點擊步驟標誌時更新進度
+      steps.forEach((step, index) => {
+        step.addEventListener('click', () => {
+          completed = index + 1;
+          updateProgress();
+        });
+      });
+
+      updateProgress();
+    });
+  </script>
+
+<!-- ==============================================================
+     第 8 章：課堂備案與教案庫（教師端）
+================================================================ -->
+<div class="container" id="chapter-8">
+  <h2><span class="step-badge">8</span> 第 8 章：課堂備案與教案庫</h2>
+
+  <h3>1. 教案與教材庫</h3>
+  <p>將各單元教案、學習單（PDF/Word）、教學影片連結與 PPT 整合在同一個資料庫中，並加上「科目」、「年級」、「單元」等標籤，方便歷年複習與跨年級調閱。</p>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <h4>📚 單一資料庫整合</h4>
+      <p>新增資料庫 → 選擇 <strong>畫框視圖</strong> 或 <strong>表格視圖</strong>。每一筆紀錄可包含：</p>
+      <ul style="line-height: 1.6;">
+        <li><strong>科目：</strong> 國文、數學、自然社會等</li>
+        <li><strong>年級：</strong> 1~6 年級</li>
+        <li><strong>單元：</strong> 第1單元「字母世界」、第2單元「加法導入」</li>
+        <li><strong>教材：</strong> PDF 學習單、連結的 PPT、嵌入的 YouTube 教學影片</li>
+        <li><strong>關鍵詞：</strong> 如「復習」、「挑戰」、「團隊練習」</li>
+      </ul>
+    </div>
+
+    <div class="feature-card">
+      <h4>🏷️ 標籤範例</h4>
+      <div style="display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap;">
+        <span style="background:#e3f2fd;color:#1565c0;padding:2px 6px;border-radius:10px;font-size:0.7rem;">國文</span>
+        <span style="background:#e8f5e9;color:#2e7d32;padding:2px 6px;border-radius:10px;font-size:0.7rem;">1年級</span>
+        <span style="background:#fff3e0;color:#ef6c00;padding:2px 6px;border-radius:10px;font-size:0.7rem;">單元</span>
+        <span style="background:#e0e0e0;color:#5f6368;padding:2px 6px;border-radius:10px;font-size:0.7rem;">PDF</span>
+      </div>
+    </div>
+  </div>
+
+  <h3>2. 差異化教學紀錄</h3>
+  <p>建立學生學習狀況紀錄表，針對學習扶助（補救教學）或特殊需求學生，紀錄個別化學習策略與成長軌跡。</p>
+
+  <div class="alert" style="background:#fff3e0;border-left-color:#ff9800;margin:1rem 0;">
+    <p><strong>💡 新手上手範例：</strong></p>
+    <ol style="line-height: 1.8;">
+      <li>建立一個資料庫，欄位包括：<code>姓名</code>、<code>目標</code>、<code>實施策略</code>、<code>成長觀察</code>、<code>下一步</code></li>
+      <li>針對「數學扶助」學生，記錄「用具計數」的嘗試次數與突破點</li>
+      <li>使用 <strong>日期</strong> 欄位追蹤每次輔導的時間點</li>
+      <li>設定 <strong>只能編輯</strong> 的權限，保護隱私</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ==============================================================
+     第 9 章：班級經營與日常行政
+================================================================ -->
+<div class="container" id="chapter-9">
+  <h2><span class="step-badge">9</span> 第 9 章：班級經營與日常行政</h2>
+
+  <h3>1. 學生綜合資料庫</h3>
+  <p>記錄座號、緊急聯絡方式、座位表、特殊過敏史或特殊需求（可設置權限保護隱私）。</p>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <h4>📁 資料庫欄位建議</h4>
+      <table style="width:100%;border-collapsecollapse;margin:1rem 0;">
+        <thead>
+          <tr style="background:#f0f2f5;"><th style="padding:8px;">欄位型態</th><th style="padding:8px;">說明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:8px;border:1px solid #e0e0e0;">文字</td><td style="padding:8px;border:1px solid #e0e0e0;">姓名、班級</td></tr>
+          <tr><td style="padding:8px;border:1px solid #e0e0e0;">選項</td><td style="padding:8px;border:1px solid #e0e0e0;">血型、興趣項目</td></tr>
+          <tr><td style="padding:8px;border:1px solid #e0e0e0;">日期</td><td style="padding:8px;border:1px solid #e0e0e0;">入學日期</td></tr>
+          <tr><td style="padding:8px;border:1px solid #e0e0e0;">勾選核</td><td style="padding:8px;border:1px solid #e0e0e0;">過敏項目提醒</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="feature-card">
+      <h4>🔒 隱私權保護</h4>
+      <p>設定頁面分享權限為 <strong>「僅成員</strong>」，或使用 <strong>密碼保護</strong> 方式限制瀏覽。</p>
+    </div>
+  </div>
+
+  <h3>2. 座位安排與團體計分</h3>
+  <p>使用看板視圖（Board View）進行小組分組、競賽積分或班級幹部職責輪替。</p>
+
+  <div class="tip">
+    <strong>操作示範：</strong>
+    <ol style="line-height: 1.8;">
+      <li>建立資料庫，新增 <strong>選項</strong> 欄位：<code>小組 A / 小組 B / 小組 C</code></li>
+      <li>新增 <strong>數字</strong> 欄位：<code>積分</code></li>
+      <li>切換至 <strong>看板視圖</strong>，即可視覺化檢視各小組積分與成員</li>
+      <li>透過 <strong>拖曳</strong> 任意卡片，即可調整小組歸屬或調整積分</li>
+    </ol>
+  </div>
+
+  <h3>3. 作業繳交與評量追蹤</h3>
+  <p>建立作業檢核表，清楚標示「未繳、修改中、已過關」，並能一鍵統計全班繳交率。</p>
+
+  <div class="feature-card">
+    <h4>📊 作業狀態標示</h4>
+    <div style="background:#fafafa;padding:1rem;border-radius:8px;margin-top:0.5rem;">
+      <span style="color:#ff9800;margin-right:4px;">🔴</span> <strong>未繳</strong>
+      <span style="color:#ffb74d;margin-right:4px;">🟡</span> <strong>修改中</strong>
+      <span style="color:#4caf50;margin-right:4px;">🟢</strong> <strong>已過關</strong>
+    </div>
+  </div>
+
+  <div class="alert">
+    <p><strong>一鍵統計技巧：</strong></p>
+    <p>在表格視圖中，點擊欄位標題右側的 <code>∑</code> 圖示，選擇 <strong>計數</strong> 即可看到「未繳」與「已過關」人數。</p>
+  </div>
+</div>
+
+<!-- ==============================================================
+     第 10 章：引導國小學生學習（學生端）
+================================================================ -->
+<div class="container" id="chapter-10">
+  <h2><span class="step-badge">10</span> 第 10 章：引導國小學生學習</h2>
+
+  <p>國小中高年級學生（約 9–12 歲）正處於具體運思期向形式運思期過渡的階段，Notion 的 <strong>視覺化（看板、圖卡）與拖拽介面</strong> 非常適合培養自主學習與時間管理能力。</p>
+
+  <div class="alert" style="background:#e8f5e9;border-left-color:#4caf50;">
+    <p><strong>💡 教學觀點：</strong> Notion 不僅是工具，更是「數位習慣」的載體。引導學生從「老師布置的事」轉向「我自己想做的事」。</p>
+  </div>
+
+  <div class="feature-grid" style="gap:1rem;">
+    <!-- 左側：本週任務 -->
+    <div class="feature-card">
+      <h3>📅 本週任務 (看板視圖)</h3>
+      <p>引導學生將聯絡簿上的作業轉化為 Notion 的「拖拽式看板（To-Do / Doing / Done）」。</p>
+      <div style="background:#fafafa;padding:1rem;border-radius:8px;margin-top:0.5rem;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+          <span>🟢 待完成</span><span>3</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+          <span>🟡 進行中</span><span>1</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;">
+          <span>🟢 已完成</span><span>2</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 右側：閱讀存摺 -->
+    <div class="feature-card">
+      <h3>📚 閱讀存摺 (畫廊視圖)</h3>
+      <p>利用畫廊視圖（Gallery View）放上書籍封面，讓學生寫下閱讀心得、評分與佳句摘錄。</p>
+      <div style="background:#fafafa;padding:1rem;border-radius:8px;margin-top:0.5rem;">
+        <div style="height:120px;background:#e3f2fd;border-radius:6px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;color:#1565c0;font-size:0.8rem;">
+          📖 哈利波特
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:0.7rem;color:#666;">
+          <span>⭐ 5顆星</span><span>📝 一句話心得：</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feature-grid" style="margin-top:1rem;">
+    <!-- 左側：專題研究 -->
+    <div class="feature-card">
+      <h3>💡 專題研究 (卡片/清單)</h3>
+      <p>自然科探究或社會科專題（如：在地文化調查、動植物觀察），學生可直接在頁面插入圖片、錄音與心智圖。</p>
+      <div style="background:#fafafa;padding:1rem;border-radius:8px;margin-top:0.5rem;">
+        <div style="font-size:0.8rem;color:#1565c0;margin-bottom:0.5rem;">自然科探究：植物觀察</div>
+        <ul style="line-height: 1.6; margin:0;">
+          <li>🌱 播種日期：2024/10/01</li>
+          <li>📏 成長高度：5cm</li>
+          <li>📷 觀察照片：[插入]</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 右側：習慣養成 -->
+    <div class="feature-card">
+      <h3>🎯 習慣養成 (勾選方塊)</h3>
+      <p>利用 Checkbox（勾選框）紀錄每日閱讀、運動、整理書包等生活習慣，建立成就感。</p>
+      <div style="background:#fafafa;padding:1rem;border-radius:8px;margin-top:0.5rem;">
+        <div style="font-size:1rem;">[x] 每天閱讀 20 分鐘</div>
+        <div style="font-size:1rem;">[ ] 整理書包</div>
+        <div style="font-size:1rem;">[ ] 早起早睡</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==============================================================
+     第 11 章：行政協作與親師溝通
+================================================================ -->
+<div class="container" id="chapter-11">
+  <h2><span class="step-badge">11</span> 第 11 章：行政協作與親師溝通</h2>
+
+  <h3>1. 學程與學年教師協作</h3>
+  <p>跨班級教師共同編輯「領域備課庫」，共享教學資源、校外教學企劃書或期末考題庫，避免重複造輪子。</p>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <h4>👥 同備優勢</h4>
+      <ul style="line-height: 1.8;">
+        <li>同一個資料庫，不同班級使用不同視圗篩選</li>
+        <li>共享「期末考題庫」與「教學光影」</li>
+        <li>實時協作：多位老師同步編輯，變更即時顯示</li>
+      </ul>
+    </div>
+
+    <div class="feature-card">
+      <h4>📅 活動進度表</h4>
+      <p>使用 Gantt/Timeline 時間軸，追蹤運動會、園遊會或親職教育日各組別的籌備進度。</p>
+    </div>
+  </div>
+
+  <h3>2. 班級網頁與親師溝通</h3>
+  <p>教師可將 Notion 頁面設置為「公開網頁」，做為班級公告欄。內容可包含：每週聯絡簿重要提醒、校外教學注意事項、學生優秀作品展覽、班級相簿等。</p>
+
+  <div class="alert">
+    <p><strong>⚡ 一鍵發布技巧：</strong></p>
+    <ol style="line-height: 1.8;">
+      <li>進入 <strong>設定與成員</strong></li>
+      <li>開啟 <strong>「公開網頁」</strong> 開關</li>
+      <li>複製所產生的連結，即可分享至臉書家長群、電子報</li>
+    </ol>
+  </div>
+
+  <div class="tip">
+    <strong>家長端優勢：</strong> 手機閱讀極佳，更新內容即時同步，無需另購網域或架站。
+  </div>
+</div>
+
+<!-- ==============================================================
+     第 12 章：進階功能 – LaTeX 數學與化學公式
+================================================================ -->
+<div class="container" id="chapter-12">
+  <h2><span class="step-badge">12</span> 第 12 章：進階功能 – LaTeX 數學與化學公式</h2>
+
+  <p>Notion 原生支援 LaTeX 語法，無論是二次方程式、微積分符號，或是化學反應式與離子價數，都能排版得像正式考卷一樣工整。</p>
+
+  <h3>1. 行Inline與區塊公式</h3>
+
+  <div class="feature-card">
+    <h4>📌 行Inline公式（inline）</h4>
+    <p>使用 <code>$$</code> 圍繞公式，直接於段落中嵌入。</p>
+    <ul style="line-height: 1.8;">
+      <li><code>$$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$</code> → <span style="font-family:'SF Mono','Fira Mono',monospace;background:#f0f2f5;padding:2px 6px;border-radius:4px;">$$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$</span></li>
+      <li><code>$$E = mc^2$$</code> → <span style="font-family:'SF Mono','Fira Mono',monospace;background:#f0f2f5;padding:2px 6px;border-radius:4px;">$$E = mc^2$$</span></li>
+    </ul>
+  </div>
+
+  <div class="feature-card">
+    <h4>📦 區塊公式（block）</h4>
+    <p>單獨一行輸入 LaTeX，置中顯示，適合複雜公式。</p>
+    <p>輸入：<code>$$</code> 然後換行，輸入公式再輸入 <code>$$</code> 結束。</p>
+    <pre style="background:#fafafa;padding:1rem;border-radius:6px;overflow-x:auto;font-size:0.85rem;">
+      $$
+      SO_4^{2-} \quad \text{（硫酸根離子）}
+      $$
+      $$
+      \underset{\text{反應物}}{\overset{\text{產物}}{CH_4 + 2O_2 \rightarrow 2H_2O + CO_2}}
+      $$
+    </pre>
+  </div>
+
+  <h3>2. 化學公式實務範例</h3>
+
+  <div class="alert">
+    <p><strong>🧪 常見化學符號輸入：</strong></p>
+    <ul style="line-height: 1.8;">
+      <li><code>SO_4^{2-}</code> → <span style="font-family:'SF Mono','Fira Mono',monospace;background:#f0f2f5;padding:2px 6px;border-radius:4px;">SO_4^{2-}</span> （硫酸根離子）</li>
+      <li><code>H^+</code> → <span style="font-family:'SF Mono','Fira Mono',monospace;background:#f0f2f5;padding:2px 6px;border-radius:4px;">H^+</span> （氫離子）</li>
+      <li><code>OH^-</code> → <span style="font-family:'SF Mono','Fira Mono',monospace;background:#f0f2f5;padding:2px 6px;border-radius:4px;">OH^-</span> （氫氧根離子）</li>
+      <li><code>\underset{\text{下}}{\overset{\text{上}}{CH_3COOH}}</code> → <span style="font-family:'SF Mono','Fira Mono',monospace;background:#f0f2f5;padding:2px 6px;border-radius:4px;">\underset{\text{下}}{\overset{\text{上}}{CH_3COOH}}</span> （可逆反應箭頭排版）</li>
+    </ul>
+  </div>
+
+  <h3>3. 教學應用建議</h3>
+  <ul style="line-height: 1.8;">
+    <li>數學老師：期中考試試卷上的方程式、微積分極限公式</li>
+    <li>化學老師：離子方程式、化學反應式（如 <code>2H_2 + O_2 \rightarrow 2H_2O</code>}</li>
+    <li>物理老師：功、能、動量等公式的快速輸入</li>
+  </ul>
+</div>
+
+<!-- 結語區塊 -->
+<div class="container" style="text-align:center;margin-top:4rem;">
+  <h2>🎉 恭喜！完成 Notion 教學全紀錄</h2>
+  <p style="color:var(--text-secondary);margin-top:1rem;">
+    本教學涵蓋：<br>
+    ▸ 基礎入門（安裝、介面、快捷鍵）<br>
+    ▸ 課堂應用（備案、班級經營、國小學習引導）<br>
+    ▸ 行政協作（教師同備、親師溝通）<br>
+    ▸ 進階技巧（LaTeX 數學公式）<br>
+    建議您先從 <strong>「教案與教材庫」** 或 <strong>「班級網頁發布」</strong> 開始實踐，
+    根據教學需求漸進探索更多功能。
+  </p>
+  <p style="margin-top:2rem;font-size:0.9rem;color:#888;">
+    祝您教學愉快、靈感無限 🚀
+  </p>
+</div>
+
+</body>
+</html>
